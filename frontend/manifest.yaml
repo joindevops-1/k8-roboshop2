@@ -145,7 +145,7 @@ spec:
       volumes:
       - name: nginx-conf
         configMap:
-          name: web
+          name: frontend
           items:
             - key: nginx.conf
               path: nginx.conf
