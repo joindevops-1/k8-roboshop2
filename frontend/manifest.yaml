@@ -53,7 +53,7 @@ data:
       include /etc/nginx/sites-enabled/*;
 
       server {
-        listen       80;
+        listen       8080;
         server_name  localhost;
 
         proxy_http_version 1.1;
@@ -164,4 +164,4 @@ spec:
   ports:
   - protocol: TCP
     port: 80 #service-port
-    targetPort: 80 #container-port
+    targetPort: 8080 #container-port
