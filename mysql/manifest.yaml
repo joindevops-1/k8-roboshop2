@@ -45,18 +45,17 @@ spec:
           --region us-east-1 \
           --secret-id roboshop/mysql/password \
           --query SecretString \
-          --output text | jq -r .MYSQL_ROOT_PASSWORD > /tmp/mysql/password.txt
+          --output text | jq -r .MYSQL_ROOT_PASSWORD > /tmp/password.txt
         volumeMounts:
         - name: secret-volume
-          mountPath: /tmp/mysql
+          mountPath: /tmp
       containers:
       - name: mysql
-        
         image: nginx
         imagePullPolicy: Always
         volumeMounts:
         - name: secret-volume
-          mountPath: /tmp/mysql
+          mountPath: /tmp
 ---
 apiVersion: v1
 kind: Service
