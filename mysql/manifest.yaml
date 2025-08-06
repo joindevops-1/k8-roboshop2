@@ -30,13 +30,37 @@ spec:
         project: roboshop
         tier: db
     spec:
+      serviceAccountName: roboshop-mysql-secret-reader
+      volumes:
+      - name: secret-volume
+        emptyDir: {}
+      initContainers:
+      - name: fetch-secret
+        image: amazon/aws-cli
+        command:
+        - sh
+        - -c
+        - >
+          aws secretsmanager get-secret-value \
+          --region us-east-1 \
+          --secret-id roboshop/mysql/password \
+          --query SecretString \
+          --output text | jq -r .MYSQL_ROOT_PASSWORD > /tmp/mysql/password.txt
+        volumeMounts:
+        - name: secret-volume
+          mountPath: /tmp/mysql
       containers:
       - name: mysql
         image: joindevops/mysql:v1
         imagePullPolicy: Always
-        envFrom:
-        - secretRef:
-            name: mysql
+        volumeMounts:
+        - name: secret-volume
+          mountPath: /tmp/mysql
+        command: ["sh", "-c"]
+        args:
+        - |
+          export MYSQL_ROOT_PASSWORD=$(cat /tmp/mysql/password.txt)
+          exec mysqld
 ---
 apiVersion: v1
 kind: Service
