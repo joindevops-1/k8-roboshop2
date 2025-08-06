@@ -51,6 +51,7 @@ spec:
           mountPath: /tmp/mysql
       containers:
       - name: mysql
+        
         image: joindevops/mysql:v1.1
         imagePullPolicy: Always
         volumeMounts:
