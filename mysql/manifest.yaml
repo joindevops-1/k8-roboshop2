@@ -38,9 +38,6 @@ spec:
       - name: fetch-secret
         image: amazon/aws-cli
         command:
-        - sh
-        - -c
-        - >
           aws secretsmanager get-secret-value \
           --region us-east-1 \
           --secret-id roboshop/mysql/password \
