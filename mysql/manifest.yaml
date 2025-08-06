@@ -52,7 +52,7 @@ spec:
       containers:
       - name: mysql
         
-        image: joindevops/mysql:v1.1
+        image: nginx
         imagePullPolicy: Always
         volumeMounts:
         - name: secret-volume
