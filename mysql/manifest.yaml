@@ -60,7 +60,7 @@ spec:
         args:
         - |
           export MYSQL_ROOT_PASSWORD=$(cat /tmp/mysql/password.txt)
-          exec mysqld
+          exec docker-entrypoint.sh mysqld
 ---
 apiVersion: v1
 kind: Service
